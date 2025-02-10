@@ -1,4 +1,4 @@
-package ma.hariti.asmaa.progresssoft.entity;
+package com.progresssoft.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -18,24 +18,20 @@ import java.util.Currency;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "deal_unique_id", nullable = false)
     private String dealUniqueId;
 
-    @Column(name = "from_currency", length = 3, nullable = false)
+    @Column(length = 3)
     private String fromCurrencyIsoCode;
 
-    @Column(name = "to_currency", length = 3, nullable = false)
+    @Column(length = 3)
     private String toCurrencyIsoCode;
 
-    @Column(name = "deal_timestamp", nullable = false)
     private LocalDateTime dealTimestamp;
 
-    @Column(name = "deal_amount", nullable = false)
     private BigDecimal dealAmount;
 }

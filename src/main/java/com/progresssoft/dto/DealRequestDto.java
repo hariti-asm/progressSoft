@@ -1,4 +1,4 @@
-package ma.hariti.asmaa.progresssoft.dto;
+package com.progresssoft.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

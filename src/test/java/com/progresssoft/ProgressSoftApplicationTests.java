@@ -1,4 +1,4 @@
-package ma.hariti.asmaa.progresssoft;
+package com.progresssoft;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

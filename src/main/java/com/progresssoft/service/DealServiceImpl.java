@@ -1,12 +1,12 @@
-package ma.hariti.asmaa.progresssoft.service;
+package com.progresssoft.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.hariti.asmaa.progresssoft.dto.DealRequestDto;
-import ma.hariti.asmaa.progresssoft.dto.DealResponseDto;
-import ma.hariti.asmaa.progresssoft.entity.Deal;
-import ma.hariti.asmaa.progresssoft.mapper.DealMapper;
-import ma.hariti.asmaa.progresssoft.repository.DealRepository;
+import com.progresssoft.dto.DealRequestDto;
+import com.progresssoft.dto.DealResponseDto;
+import com.progresssoft.entity.Deal;
+import com.progresssoft.mapper.DealMapper;
+import com.progresssoft.repository.DealRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +20,7 @@ public class DealServiceImpl implements DealService {
     public DealResponseDto save(DealRequestDto dto) {
         log.info("Attempting to save deal with ID: {}", dto.dealUniqueId());
 
-        if (dealRepository.existsById(dto.dealUniqueId())) {
+        if (dealRepository.existsById(Long.valueOf(dto.dealUniqueId()))) {
             log.warn("Duplicate deal ID detected: {}. Operation aborted.", dto.dealUniqueId());
             throw new IllegalStateException("Deal ID already exists");
         }

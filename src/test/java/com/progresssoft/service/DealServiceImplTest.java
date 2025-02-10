@@ -1,10 +1,10 @@
-package ma.hariti.asmaa.progresssoft.service;
+package com.progresssoft.service;
 
-import ma.hariti.asmaa.progresssoft.dto.DealRequestDto;
-import ma.hariti.asmaa.progresssoft.dto.DealResponseDto;
-import ma.hariti.asmaa.progresssoft.entity.Deal;
-import ma.hariti.asmaa.progresssoft.mapper.DealMapper;
-import ma.hariti.asmaa.progresssoft.repository.DealRepository;
+import com.progresssoft.dto.DealRequestDto;
+import com.progresssoft.dto.DealResponseDto;
+import com.progresssoft.entity.Deal;
+import com.progresssoft.mapper.DealMapper;
+import com.progresssoft.repository.DealRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

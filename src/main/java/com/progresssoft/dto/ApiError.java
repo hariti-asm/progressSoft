@@ -1,4 +1,4 @@
-package ma.hariti.asmaa.progresssoft.dto;
+package com.progresssoft.dto;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
