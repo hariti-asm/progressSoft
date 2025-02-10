@@ -1,8 +1,6 @@
 package ma.hariti.asmaa.progresssoft.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,19 +20,22 @@ import java.util.Currency;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Deal {
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotNull
-    private Currency fromCurrency;
+    @Column(name = "deal_unique_id", nullable = false)
+    private String dealUniqueId;
 
-    @NotNull
-    private Currency toCurrency;
+    @Column(name = "from_currency", length = 3, nullable = false)
+    private String fromCurrencyIsoCode;
 
-    @NotNull
-    private LocalDateTime timestamp;
+    @Column(name = "to_currency", length = 3, nullable = false)
+    private String toCurrencyIsoCode;
 
-    @NotNull
-    private BigDecimal amount;
+    @Column(name = "deal_timestamp", nullable = false)
+    private LocalDateTime dealTimestamp;
+
+    @Column(name = "deal_amount", nullable = false)
+    private BigDecimal dealAmount;
 }

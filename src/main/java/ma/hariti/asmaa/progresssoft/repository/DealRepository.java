@@ -1,4 +1,7 @@
 package ma.hariti.asmaa.progresssoft.repository;
 
-public class DealRepository {
+import ma.hariti.asmaa.progresssoft.entity.Deal;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DealRepository extends JpaRepository<Deal, String> {
 }
