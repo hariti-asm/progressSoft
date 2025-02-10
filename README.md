@@ -24,7 +24,6 @@ http://localhost:8085
 
 ## API Endpoints
 - POST `/deal/add`: Add new FX deal
-- GET `/deal/all`: Retrieve all deals
 
 ## Deal Validation Rules
 - Unique Deal ID (non-empty)
