@@ -66,6 +66,3 @@ mvn test
 
 ## Contributing
 Submit pull requests for any improvements.
-
-## License
-Copyright © 2024 ProgressSoft Corporation
