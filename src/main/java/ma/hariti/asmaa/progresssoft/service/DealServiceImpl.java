@@ -22,7 +22,7 @@ public class DealServiceImpl implements DealService {
 
         if (dealRepository.existsById(dto.dealUniqueId())) {
             log.warn("Duplicate deal ID detected: {}. Operation aborted.", dto.dealUniqueId());
-            throw new DuplicateDealIdException("Deal id already exists");
+            throw new IllegalStateException("Deal ID already exists");
         }
 
         Deal savedDeal = dealRepository.save(dealMapper.toEntity(dto));
