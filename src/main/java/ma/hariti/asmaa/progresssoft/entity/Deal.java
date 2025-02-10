@@ -1,5 +1,8 @@
 package ma.hariti.asmaa.progresssoft.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +19,6 @@ import java.util.Currency;
 
 @Getter
 @Setter
-@Accessors(chain = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Deal {
