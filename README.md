@@ -1,33 +1,72 @@
 # FX Deal Data Warehouse
 
 ## Overview
-This project is a data warehouse solution for Bloomberg to analyze FX deals, developed as part of a technical assignment for ProgressSoft Corporation.
+A Spring Boot application for managing and validating FX deals, built as a technical assignment for ProgressSoft Corporation.
 
-## Requirements
+## Tech Stack
 - Java 17
 - Spring Boot
 - PostgreSQL
 - Docker
 - Maven
 
-## Project Structure
-- `src/main/java`: Source code
-- `src/test/java`: Unit tests
-- `Dockerfile`: Container configuration
-- `docker-compose.yml`: Multi-container Docker setup
-- `Makefile`: Build and run commands
+## Quick Start
+```bash
+# Clone repository
+git clone https://github.com/hariti-asm/progressSoft.git
 
-## Setup and Running
-1. Clone the repository
-2. Ensure Docker and Maven are installed
-3. Run `make build` to compile
-4. Run `make start` to launch the application
+# Build and run with Docker
+docker-compose up -d
 
-## Validation Rules
-- Deal Unique ID: Must be non-empty
-- Currency Codes: Must be 3-letter ISO codes
-- Timestamp: Must not be in the future
-- Deal Amount: Must be positive
+# Access API at
+http://localhost:8085
+```
+
+## API Endpoints
+- POST `/deal/add`: Add new FX deal
+- GET `/deal/all`: Retrieve all deals
+
+## Deal Validation Rules
+- Unique Deal ID (non-empty)
+- Valid ISO currency codes (3 letters)
+- Deal timestamp not in future
+- Positive deal amount
+
+## Database Schema
+```sql
+CREATE TABLE deals (
+    id UUID PRIMARY KEY,
+    from_currency VARCHAR(3),
+    to_currency VARCHAR(3),
+    timestamp TIMESTAMP,
+    amount DECIMAL,
+);
+```
 
 ## Testing
-Run unit tests with `make test`
+```bash
+# Run tests
+mvn test
+```
+
+## API Request Example
+```json
+{
+    "dealId": "123e4567-e89b-12d3-a456-426614174000",
+    "fromCurrency": "USD",
+    "toCurrency": "EUR",
+    "timestamp": "2024-02-10T10:00:00",
+    "amount": 1000.00
+}
+```
+
+## Error Handling
+- Invalid currency: 400 Bad Request
+- Duplicate deal: 409 Conflict
+- Server errors: 500 Internal Server Error
+
+## Contributing
+Submit pull requests for any improvements.
+
+## License
+Copyright © 2024 ProgressSoft Corporation
