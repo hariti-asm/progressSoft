@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record DealRequestDto(
+        @NotNull(message = "ID is required")
+        @Positive(message = "ID must be positive")
+        Long id,
         @Pattern(regexp = "^[A-Z]{3}$", message = "From Currency ISO Code must be 3 uppercase letters")
         @NotBlank(message = "From Currency ISO Code is required")
         String fromCurrencyIsoCode,

@@ -37,31 +37,24 @@ class DealServiceImplTest {
     @BeforeEach
     void setup() {
         dealRequestDto = new DealRequestDto(
+                1L,
                 "MAD",
                 "USD",
                 LocalDateTime.now(),
                 BigDecimal.valueOf(2000)
         );
 
-        deal = new Deal(
-
-        );
+        deal = new Deal();
     }
 
     @Test
     void whenValidRequest_thenReturnCreatedDeal() {
-        given(dealRepository.existsByFromCurrencyIsoCodeAndToCurrencyIsoCodeAndDealTimestampAndDealAmount(
-                dealRequestDto.fromCurrencyIsoCode(),
-                dealRequestDto.toCurrencyIsoCode(),
-                dealRequestDto.dealTimestamp(),
-                dealRequestDto.dealAmount()
-        )).willReturn(false);
-
+        given(dealRepository.existsById(dealRequestDto.id())).willReturn(false);
         given(dealMapper.toEntity(dealRequestDto)).willReturn(deal);
         given(dealRepository.save(any(Deal.class))).willReturn(deal);
 
         DealResponseDto expectedResponse = new DealResponseDto(
-                1L,
+                dealRequestDto.id(),
                 dealRequestDto.fromCurrencyIsoCode(),
                 dealRequestDto.toCurrencyIsoCode(),
                 dealRequestDto.dealTimestamp(),
@@ -73,7 +66,7 @@ class DealServiceImplTest {
         DealResponseDto actual = underTest.save(dealRequestDto);
 
         assertThat(actual).isNotNull();
-        assertThat(actual.id()).isNotNull();
+        assertThat(actual.id()).isEqualTo(dealRequestDto.id());
         assertThat(actual.fromCurrencyIsoCode()).isEqualTo(dealRequestDto.fromCurrencyIsoCode());
         assertThat(actual.toCurrencyIsoCode()).isEqualTo(dealRequestDto.toCurrencyIsoCode());
         assertThat(actual.dealTimestamp()).isEqualTo(dealRequestDto.dealTimestamp());
@@ -84,15 +77,11 @@ class DealServiceImplTest {
 
     @Test
     void whenDealIdAlreadyExists_thenThrowDealAlreadyExistsException() {
-        given(dealRepository.existsByFromCurrencyIsoCodeAndToCurrencyIsoCodeAndDealTimestampAndDealAmount(
-                dealRequestDto.fromCurrencyIsoCode(),
-                dealRequestDto.toCurrencyIsoCode(),
-                dealRequestDto.dealTimestamp(),
-                dealRequestDto.dealAmount()
-        )).willReturn(true);
+
+        given(dealRepository.existsById(dealRequestDto.id())).willReturn(true);
 
         assertThatThrownBy(() -> underTest.save(dealRequestDto))
                 .isInstanceOf(DealAlreadyExistsException.class)
-                .hasMessage("A deal with the same details already exists");
+                .hasMessage("A deal with the ID " + dealRequestDto.id() + " already exists");
     }
 }

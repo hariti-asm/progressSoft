@@ -23,23 +23,14 @@ public class DealServiceImpl implements DealService {
     public DealResponseDto save(DealRequestDto dto) {
         log.info("Attempting to save deal: {}", dto);
 
-        if (isDealExists(dto)) {
-            log.warn("Duplicate deal detected: {}", dto);
-            throw new DealAlreadyExistsException("A deal with the same details already exists");
+        if (dealRepository.existsById(dto.id())) {
+            log.warn("Deal with ID {} already exists", dto.id());
+            throw new DealAlreadyExistsException("A deal with the ID " + dto.id() + " already exists");
         }
 
         Deal savedDeal = dealRepository.save(dealMapper.toEntity(dto));
-        log.info("Deal saved successfully with ID: {}", savedDeal);
+        log.info("Deal saved successfully with ID: {}", savedDeal.getId());
 
         return dealMapper.toResponseEntity(savedDeal);
-    }
-
-    private boolean isDealExists(DealRequestDto dto) {
-        return dealRepository.existsByFromCurrencyIsoCodeAndToCurrencyIsoCodeAndDealTimestampAndDealAmount(
-                dto.fromCurrencyIsoCode(),
-                dto.toCurrencyIsoCode(),
-                dto.dealTimestamp(),
-                dto.dealAmount()
-        );
     }
 }
