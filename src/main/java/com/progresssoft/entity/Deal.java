@@ -23,8 +23,6 @@ public class Deal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String dealUniqueId;
-
     @Column(length = 3)
     private String fromCurrencyIsoCode;
 

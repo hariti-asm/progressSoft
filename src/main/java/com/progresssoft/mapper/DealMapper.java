@@ -9,6 +9,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface DealMapper {
     Deal toEntity(DealRequestDto dto);
-
     DealResponseDto toResponseEntity(Deal deal);
 }

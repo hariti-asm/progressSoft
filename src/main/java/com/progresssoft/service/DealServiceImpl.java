@@ -1,5 +1,6 @@
 package com.progresssoft.service;
 
+import com.progresssoft.exception.DealAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.progresssoft.dto.DealRequestDto;
@@ -8,6 +9,7 @@ import com.progresssoft.entity.Deal;
 import com.progresssoft.mapper.DealMapper;
 import com.progresssoft.repository.DealRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,17 +19,27 @@ public class DealServiceImpl implements DealService {
     private final DealMapper dealMapper;
 
     @Override
+    @Transactional
     public DealResponseDto save(DealRequestDto dto) {
-        log.info("Attempting to save deal with ID: {}", dto.dealUniqueId());
+        log.info("Attempting to save deal: {}", dto);
 
-        if (dealRepository.existsById(Long.valueOf(dto.dealUniqueId()))) {
-            log.warn("Duplicate deal ID detected: {}. Operation aborted.", dto.dealUniqueId());
-            throw new IllegalStateException("Deal ID already exists");
+        if (isDealExists(dto)) {
+            log.warn("Duplicate deal detected: {}", dto);
+            throw new DealAlreadyExistsException("A deal with the same details already exists");
         }
 
         Deal savedDeal = dealRepository.save(dealMapper.toEntity(dto));
-        log.info("Deal saved successfully with ID: {}", savedDeal.getId());
+        log.info("Deal saved successfully with ID: {}", savedDeal);
 
         return dealMapper.toResponseEntity(savedDeal);
+    }
+
+    private boolean isDealExists(DealRequestDto dto) {
+        return dealRepository.existsByFromCurrencyIsoCodeAndToCurrencyIsoCodeAndDealTimestampAndDealAmount(
+                dto.fromCurrencyIsoCode(),
+                dto.toCurrencyIsoCode(),
+                dto.dealTimestamp(),
+                dto.dealAmount()
+        );
     }
 }

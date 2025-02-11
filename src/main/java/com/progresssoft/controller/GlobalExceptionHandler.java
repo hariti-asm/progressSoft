@@ -1,4 +1,4 @@
-package com.progresssoft.exception;
+package com.progresssoft.controller;
 
 import com.progresssoft.dto.ApiError;
 import org.springframework.http.HttpStatus;

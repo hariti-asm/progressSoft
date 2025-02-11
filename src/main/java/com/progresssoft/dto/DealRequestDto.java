@@ -3,13 +3,12 @@ package com.progresssoft.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import jakarta.validation.constraints.*;
-public record DealRequestDto(
-        @NotBlank(message = "Deal Unique ID cannot be blank")
-        String dealUniqueId,
 
+public record DealRequestDto(
         @Pattern(regexp = "^[A-Z]{3}$", message = "From Currency ISO Code must be 3 uppercase letters")
         @NotBlank(message = "From Currency ISO Code is required")
         String fromCurrencyIsoCode,

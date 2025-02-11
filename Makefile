@@ -7,7 +7,7 @@ down:
 	docker compose down
 
 test:
-	mvn test
+	make test
 
 clean:
 	mvn clean
