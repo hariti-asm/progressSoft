@@ -9,6 +9,7 @@ import com.progresssoft.repository.DealRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -20,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+
 @ExtendWith(SpringExtension.class)
 class DealServiceImplTest {
     @Mock
@@ -27,13 +29,13 @@ class DealServiceImplTest {
     @Mock
     private DealMapper dealMapper;
 
-    private DealService underTest;
+    @InjectMocks
+    private DealServiceImpl underTest;
     private DealRequestDto dealRequestDto;
     private Deal deal;
 
     @BeforeEach
     void setup() {
-        underTest = new DealServiceImpl(dealRepository, dealMapper);
         dealRequestDto = new DealRequestDto(
                 "MAD",
                 "USD",
@@ -93,5 +95,4 @@ class DealServiceImplTest {
                 .isInstanceOf(DealAlreadyExistsException.class)
                 .hasMessage("A deal with the same details already exists");
     }
-
 }
