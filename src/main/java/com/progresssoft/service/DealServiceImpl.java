@@ -19,7 +19,6 @@ public class DealServiceImpl implements DealService {
     private final DealMapper dealMapper;
 
     @Override
-    @Transactional
     public DealResponseDto save(DealRequestDto dto) {
         log.info("Attempting to save deal: {}", dto);
 
